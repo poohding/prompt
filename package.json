@@ -1,0 +1,12 @@
+{
+  "name": "prompt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://poohding@github.com/poohding/prompt.git",
+  "author": "kjy2143 <kjy2143@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "folder-list": "^1.0.1",
+    "inquirer": "^5.2.0"
+  }
+}
