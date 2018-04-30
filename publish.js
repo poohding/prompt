@@ -1,12 +1,29 @@
-const fl = require('folder-list');
+const path = require('path');
+const fse = require('fs-extra');
+const folderList = require('folder-list');
+const fileList = require('list-dir');
 const inquirer = require('inquirer');
+const format = require('date-fns/format');
+const timestamp = format(new Date(), 'YYYYMMDDHHmmss');
 
-function publish(directory) {
-    console.log(`Tenth 2.0에 ${directory} 배포`);
+function deploy(directory) {
+    fileList(directory).then((files) => {
+        files.forEach((file) => {
+            const filePath = `${directory}/${file}`;
+            const deployFilePath = `${directory}/${file.split('.js')[0]}.${timestamp}.js`;
+
+            fse.copy(filePath, deployFilePath)
+                .then(() => {
+                    console.log(`Tenth2에 ${deployFilePath} 배포`);
+                    fse.remove(deployFilePath);
+                })
+                .catch(err => console.log(err))
+        });
+    });
 }
 
 function getSubDirectory(directory) {
-    return fl([`${directory}/*`, '!**/.*']);
+    return folderList([`${directory}/*`, '!**/.*']);
 }
 
 function selectDirectory(directory) {
@@ -23,12 +40,12 @@ function selectDirectory(directory) {
 
             inquirer.prompt({
                 type: 'confirm',
-                name: 'publish',
-                message: 'Tenth 2.0에 배포하시겠습니까?',
+                name: 'deploy',
+                message: 'Tenth2에 배포하시겠습니까?',
                 default: true
             }).then(answers => {
-                if (answers.publish) {
-                    publish(directory);
+                if (answers.deploy) {
+                    deploy(directory);
                 }
             });
         }
