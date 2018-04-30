@@ -41,7 +41,7 @@ function selectDirectory(directory) {
             inquirer.prompt({
                 type: 'confirm',
                 name: 'deploy',
-                message: 'Tenth2에 배포하시겠습니까?',
+                message: `Tenth2에 ${directory}/*.* 파일들을 배포하시겠습니까?`,
                 default: true
             }).then(answers => {
                 if (answers.deploy) {
