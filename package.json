@@ -5,6 +5,9 @@
   "repository": "https://poohding@github.com/poohding/prompt.git",
   "author": "kjy2143 <kjy2143@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "deploy": "node deploy.js"
+  },
   "devDependencies": {
     "date-fns": "^1.29.0",
     "folder-list": "^1.0.1",
